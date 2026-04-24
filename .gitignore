@@ -39,3 +39,7 @@ out/
 
 ### Kotlin ###
 .kotlin
+
+### DotEnv ###
+.env
+local.env
