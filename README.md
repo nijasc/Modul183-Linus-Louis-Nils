@@ -46,11 +46,12 @@
 
 ## Sicherheitsanforderungen
 
-Priorisierte OWASP Top 10 (2025) Risiken:
-- A01:2025 – Broken Access Control
-- A02:2025 – Security Misconfiguration
-- A03:2025 – Software Supply Chain Failures
-- A06:2025 – Insecure Design
+| Risiko (OWASP 2025)               | Warum?                                                                                                                   | Implementierungsbeispiele                                                                 |
+|-----------------------------------|--------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|
+| **A01:2025 – Broken Access Control** *(Pflicht)* | **Zentral für die App!** Benutzer können nur ihre eigenen Links/Kommentare bearbeiten.   | - **Role-Based Access Control (RBAC)**. <br> - **Object-Level Security** (z. B. nur der Besitzer darf Kommentare löschen). <br> - **CSRF-Schutz** für sensitive Aktionen. |
+| **A05:2025 – Injection**          | **Klassisches Risiko** für Web-Apps mit Benutzereingaben (Kommentare, Links, Suchfelder).                                | - **Vaadin-Sanitization** (z. B. `TextField` mit `setMaxLength`). <br> - **Prepared Statements** (Spring Data JPA schützt vor SQLi). <br> - **Content Security Policy (CSP)** gegen XSS. |
+| **A07:2025 – Authentication Failures** | **Login/Registrierung ist kritisch!** Schwache Passwörter, Session-Hijacking oder Brute-Force-Angriffe sind möglich.     | - **Password-Encoding** (BCrypt mit Spring Security). <br> - **Secure Cookies** (HttpOnly, Secure, SameSite). <br> - **Rate-Limiting** für Login-Versuche. <br> - **2FA** (optional, z. B. mit TOTP). |
+| **A02:2025 – Security Misconfiguration** | **Standardrisiko** für Spring Boot + Docker. Fehlende HTTPS, offene Debug-Endpoints oder Default-Passwörter sind häufig. | - **Secure Headers** (HSTS, CSP, X-Frame-Options). <br> - **Deaktivierung von Debug-Modi** in Produktion. <br> - **Minimale Docker-Images** (keine Root-Rechte). <br> - **Flyway-Sicherheit** (keine SQL-Injection in Migrationen). |
 
 ---
 
