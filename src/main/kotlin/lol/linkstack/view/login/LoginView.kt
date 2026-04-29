@@ -28,7 +28,7 @@ class LoginView : VerticalLayout(), BeforeEnterObserver {
 
         add(loginForm)
         val noAccount = HorizontalLayout()
-        val signupAnchor = Anchor("/signup","Create one here.")
+        val signupAnchor = Anchor("/signup", "Create one here.")
         noAccount.add("Don't have an account?")
         noAccount.add(signupAnchor)
         add(noAccount)

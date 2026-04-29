@@ -1,6 +1,5 @@
 package lol.linkstack.view.signup
 
-import com.vaadin.flow.component.Text
 import com.vaadin.flow.component.UI
 import com.vaadin.flow.component.button.Button
 import com.vaadin.flow.component.card.Card
@@ -74,13 +73,13 @@ class SignupView(
         }
         val signUpButton = Button("Sign Up").apply {
             setWidthFull()
-                addClickListener {
-                    val signUp = SignUpDto(
-                        username = usernameField.value,
-                        password = passwordField.value
-                    )
-                    handleSignUp(signUp)
-                }
+            addClickListener {
+                val signUp = SignUpDto(
+                    username = usernameField.value,
+                    password = passwordField.value
+                )
+                handleSignUp(signUp)
+            }
         }
 
         form.add(usernameField, passwordField, signUpButton)
@@ -125,7 +124,7 @@ class SignupView(
                 setErrors(errorMessages)
                 return
             }
-           setError(e.message)
+            setError(e.message)
         }
     }
 }

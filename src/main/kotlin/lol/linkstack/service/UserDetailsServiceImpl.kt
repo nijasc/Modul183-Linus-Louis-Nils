@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException
 
 class UserDetailsServiceImpl(
     private val userJpa: UserRepository
-): UserDetailsService {
+) : UserDetailsService {
     override fun loadUserByUsername(username: String): UserDetails {
         val user = userJpa.findByNameIgnoreCase(username)
             ?: throw UsernameNotFoundException("Could not find user with username $username")
