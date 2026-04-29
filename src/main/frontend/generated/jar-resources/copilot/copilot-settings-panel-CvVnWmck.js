@@ -1,103 +1,125 @@
-import { l as g, ai as m, $ as t, u as f, x as d, y as x, E as h, aj as l, q as y, e as $, ak as C, P as w, n as S } from "./copilot-CDIH58Wx.js";
-import { r as p } from "./state-CdguMiuS.js";
-import { i } from "./icons-DHFxWkZw.js";
-import { L as T } from "./lit-renderer-pwmpXJ8k.js";
-import { B as k } from "./base-panel-BszkQant.js";
+import {
+    $ as t,
+    ai as m,
+    aj as l,
+    ak as C,
+    E as h,
+    e as $,
+    l as g,
+    n as S,
+    P as w,
+    q as y,
+    u as f,
+    x as d,
+    y as x
+} from "./copilot-CDIH58Wx.js";
+import {r as p} from "./state-CdguMiuS.js";
+import {i} from "./icons-DHFxWkZw.js";
+import {L as T} from "./lit-renderer-pwmpXJ8k.js";
+import {B as k} from "./base-panel-BszkQant.js";
+
 /**
  * @license
  * Copyright (c) 2017 - 2025 Vaadin Ltd.
  * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
  */
 class A extends T {
-  /**
-   * Adds the renderer callback to the select.
-   */
-  addRenderer() {
-    this.element.renderer = (e, o) => {
-      this.renderRenderer(e, o);
-    };
-  }
-  /**
-   * Runs the renderer callback on the select.
-   */
-  runRenderer() {
-    this.element.requestContentUpdate();
-  }
-  /**
-   * Removes the renderer callback from the select.
-   */
-  removeRenderer() {
-    this.element.renderer = null;
-  }
+    /**
+     * Adds the renderer callback to the select.
+     */
+    addRenderer() {
+        this.element.renderer = (e, o) => {
+            this.renderRenderer(e, o);
+        };
+    }
+
+    /**
+     * Runs the renderer callback on the select.
+     */
+    runRenderer() {
+        this.element.requestContentUpdate();
+    }
+
+    /**
+     * Removes the renderer callback from the select.
+     */
+    removeRenderer() {
+        this.element.renderer = null;
+    }
 }
+
 const P = g(A), u = window.Vaadin.copilot.tree;
 if (!u)
-  throw new Error("Tried to access copilot tree before it was initialized.");
+    throw new Error("Tried to access copilot tree before it was initialized.");
 var E = Object.defineProperty, I = Object.getOwnPropertyDescriptor, c = (a, e, o, s) => {
-  for (var n = s > 1 ? void 0 : s ? I(e, o) : e, b = a.length - 1, v; b >= 0; b--)
-    (v = a[b]) && (n = (s ? v(e, o, n) : v(n)) || n);
-  return s && n && E(e, o, n), n;
+    for (var n = s > 1 ? void 0 : s ? I(e, o) : e, b = a.length - 1, v; b >= 0; b--)
+        (v = a[b]) && (n = (s ? v(e, o, n) : v(n)) || n);
+    return s && n && E(e, o, n), n;
 };
 let r = class extends k {
-  constructor() {
-    super(...arguments), this.selectedTab = 0, this.activationShortcutEnabled = t.isActivationShortcut(), this.aiUsage = t.isAIUsageAllowed(), this.aiProvider = t.getAIProvider(), this.hideCopilotRequestOngoing = !1, this.hideCopilotDialogVisible = !1, this.sizeItems = [
-      { label: "Default", value: "default" },
-      { label: "Compact", value: "compact" }
-    ], this.themeItems = [
-      { label: "System", value: "system" },
-      { label: "Light", value: "light" },
-      { label: "Dark", value: "dark" }
-    ], this.toolbarExpandModeItems = [
-      {
-        label: "Proximity",
-        value: "proximity",
-        description: "The toolbar expands and becomes fully visible as the mouse pointer approaches it."
-      },
-      {
-        label: "Click",
-        value: "click",
-        description: "The toolbar expands and becomes fully visible when Play mode is clicked."
-      },
-      {
-        label: "Hover",
-        value: "hover",
-        description: "The toolbar expands and becomes fully visible when the mouse hovers over it."
-      },
-      {
-        label: "Always expanded",
-        value: "always",
-        description: "The toolbar remains fully visible at all times and never collapses or becomes translucent."
-      },
-      {
-        label: "Disabled",
-        value: "never",
-        description: "Only Play mode is visible. Changing Copilot mode is not available, and keyboard shortcuts are disabled."
-      }
-    ], this.aiUsageItems = [
-      { label: "Ask each time", value: "ask" },
-      { label: "Allow", value: "yes" },
-      { label: "Deny", value: "no" }
-    ], this.aiProviderItems = [
-      { label: "Any region", value: "ANY" },
-      { label: "EU only", value: "EU_ONLY" }
-    ], this.toggleActivationShortcut = () => {
-      this.activationShortcutEnabled = !this.activationShortcutEnabled, t.setActivationShortcut(this.activationShortcutEnabled);
-    };
-  }
-  connectedCallback() {
-    super.connectedCallback(), this.style.display = "block", this.classList.add("h-full");
-  }
-  updated(a) {
-    super.updated(a);
-    const e = this.querySelector('[part="general-tab-container"]'), o = this.querySelector("vaadin-tabs");
-    e && o && (e.style.height = `calc(100% - ${o.getBoundingClientRect().height}px)`);
-  }
-  renderKbd(a) {
-    const e = a.replace(/<kbd([^>]*)class="([^"]*)"/, '<kbd$1class="$2 font-sans ms-auto"').replace(/<kbd(?![^>]*class=)/, '<kbd class="font-sans ms-auto"');
-    return f(e);
-  }
-  render() {
-    return d`
+    constructor() {
+        super(...arguments), this.selectedTab = 0, this.activationShortcutEnabled = t.isActivationShortcut(), this.aiUsage = t.isAIUsageAllowed(), this.aiProvider = t.getAIProvider(), this.hideCopilotRequestOngoing = !1, this.hideCopilotDialogVisible = !1, this.sizeItems = [
+            {label: "Default", value: "default"},
+            {label: "Compact", value: "compact"}
+        ], this.themeItems = [
+            {label: "System", value: "system"},
+            {label: "Light", value: "light"},
+            {label: "Dark", value: "dark"}
+        ], this.toolbarExpandModeItems = [
+            {
+                label: "Proximity",
+                value: "proximity",
+                description: "The toolbar expands and becomes fully visible as the mouse pointer approaches it."
+            },
+            {
+                label: "Click",
+                value: "click",
+                description: "The toolbar expands and becomes fully visible when Play mode is clicked."
+            },
+            {
+                label: "Hover",
+                value: "hover",
+                description: "The toolbar expands and becomes fully visible when the mouse hovers over it."
+            },
+            {
+                label: "Always expanded",
+                value: "always",
+                description: "The toolbar remains fully visible at all times and never collapses or becomes translucent."
+            },
+            {
+                label: "Disabled",
+                value: "never",
+                description: "Only Play mode is visible. Changing Copilot mode is not available, and keyboard shortcuts are disabled."
+            }
+        ], this.aiUsageItems = [
+            {label: "Ask each time", value: "ask"},
+            {label: "Allow", value: "yes"},
+            {label: "Deny", value: "no"}
+        ], this.aiProviderItems = [
+            {label: "Any region", value: "ANY"},
+            {label: "EU only", value: "EU_ONLY"}
+        ], this.toggleActivationShortcut = () => {
+            this.activationShortcutEnabled = !this.activationShortcutEnabled, t.setActivationShortcut(this.activationShortcutEnabled);
+        };
+    }
+
+    connectedCallback() {
+        super.connectedCallback(), this.style.display = "block", this.classList.add("h-full");
+    }
+
+    updated(a) {
+        super.updated(a);
+        const e = this.querySelector('[part="general-tab-container"]'), o = this.querySelector("vaadin-tabs");
+        e && o && (e.style.height = `calc(100% - ${o.getBoundingClientRect().height}px)`);
+    }
+
+    renderKbd(a) {
+        const e = a.replace(/<kbd([^>]*)class="([^"]*)"/, '<kbd$1class="$2 font-sans ms-auto"').replace(/<kbd(?![^>]*class=)/, '<kbd class="font-sans ms-auto"');
+        return f(e);
+    }
+
+    render() {
+        return d`
       <vaadin-tabs>
         <vaadin-tab ?selected=${this.selectedTab === 0} @click=${() => this.selectedTab = 0}>General</vaadin-tab>
         <vaadin-tab ?selected=${this.selectedTab === 1} @click=${() => this.selectedTab = 1}>Shortcuts</vaadin-tab>
@@ -106,10 +128,11 @@ let r = class extends k {
       ${this.selectedTab === 0 ? this.renderGeneralTab() : null}
       ${this.selectedTab === 1 ? this.renderShortcutsTab() : null} ${this.selectedTab === 2 ? this.renderAiTab() : null}
     `;
-  }
-  renderGeneralTab() {
-    const a = t.getSelectedSize(), e = t.getSelectedTheme(), o = t.getToolbarExpandMode();
-    return d`
+    }
+
+    renderGeneralTab() {
+        const a = t.getSelectedSize(), e = t.getSelectedTheme(), o = t.getToolbarExpandMode();
+        return d`
       <div class="w-full flex flex-col justify-between" part="general-tab-container">
         <div class="border-dashed flex flex-col divide-y px-4 py-0.5">
           <div class="flex gap-2 items-start justify-between py-2">
@@ -121,8 +144,8 @@ let r = class extends k {
               .items="${this.sizeItems}"
               .value="${a}"
               @change="${(s) => {
-      t.setSelectedSize(s.target.value);
-    }}"></vaadin-select>
+            t.setSelectedSize(s.target.value);
+        }}"></vaadin-select>
           </div>
           <div class="flex gap-2 items-start justify-between py-2">
             <label class="py-1.5" id="theme">Theme</label>
@@ -133,10 +156,10 @@ let r = class extends k {
               .items="${this.themeItems}"
               .value="${e}"
               @change="${(s) => {
-      t.setSelectedTheme(
-        s.target.value
-      );
-    }}"></vaadin-select>
+            t.setSelectedTheme(
+                s.target.value
+            );
+        }}"></vaadin-select>
           </div>
           <div class="flex gap-2 items-start justify-between py-2">
             <div class="flex flex-col py-1.5">
@@ -149,10 +172,10 @@ let r = class extends k {
               theme="auto-width no-border"
               .value="${o}"
               ${P(
-      () => d`
+            () => d`
                   <vaadin-list-box class="max-w-xs">
                     ${this.toolbarExpandModeItems.map(
-        (s) => d`
+                (s) => d`
                         <vaadin-item class="items-start" label="${s.label}" value="${s.value}">
                           <span class="flex flex-col gap-0.5">
                             <span>${s.label}</span>
@@ -160,19 +183,19 @@ let r = class extends k {
                           </span>
                         </vaadin-item>
                       `
-      )}
+            )}
                   </vaadin-list-box>
                 `
-    )}
+        )}
               @change="${(s) => {
-      const n = t.getToolbarExpandMode();
-      t.setToolbarExpandMode(
-        s.target.value
-      ), x("toolbar-expand-mode-change", {
-        selected: t.getToolbarExpandMode(),
-        previous: n
-      });
-    }}"></vaadin-select>
+            const n = t.getToolbarExpandMode();
+            t.setToolbarExpandMode(
+                s.target.value
+            ), x("toolbar-expand-mode-change", {
+                selected: t.getToolbarExpandMode(),
+                previous: n
+            });
+        }}"></vaadin-select>
           </div>
           <div class="flex gap-2 justify-between py-3.5">
             <div class="flex flex-col">
@@ -234,8 +257,8 @@ let r = class extends k {
         .opened="${this.hideCopilotDialogVisible}"
         .noCloseOnOutsideClick=${this.hideCopilotRequestOngoing}
         @cancel=${() => {
-      this.hideCopilotDialogVisible = !1;
-    }}
+            this.hideCopilotDialogVisible = !1;
+        }}
         @confirm=${this.onDisableConfirm}>
         This will hide the Copilot until the server restarts. The page will reload to apply the change. Do you want to
         continue?
@@ -247,10 +270,11 @@ let r = class extends k {
             ` : null}
       </vaadin-confirm-dialog>
     `;
-  }
-  renderShortcutsTab() {
-    const a = u.hasFlowComponents();
-    return d`<div class="flex flex-col gap-4 pb-2 pt-4 px-4 ">
+    }
+
+    renderShortcutsTab() {
+        const a = u.hasFlowComponents();
+        return d`<div class="flex flex-col gap-4 pb-2 pt-4 px-4 ">
       <div class="flex justify-between">
         <div class="flex flex-col">
           <label id="enable-shortcuts-label">Enable keyboard shortcut</label>
@@ -350,10 +374,11 @@ let r = class extends k {
         </ul>
       </div>
     </div>`;
-  }
-  renderAiTab() {
-    const a = y.userInfo?.vaadiner;
-    return d`<div class="border-dashed flex flex-col divide-y px-4 py-0.5">
+    }
+
+    renderAiTab() {
+        const a = y.userInfo?.vaadiner;
+        return d`<div class="border-dashed flex flex-col divide-y px-4 py-0.5">
       <div class="flex gap-2 items-start justify-between py-2">
         <div class="flex flex-col py-1.5">
           <label id="ai-usage">AI usage</label>
@@ -366,8 +391,8 @@ let r = class extends k {
           .items="${this.aiUsageItems}"
           .value="${this.aiUsage}"
           @value-changed="${(e) => {
-      this.aiUsage = e.detail.value, t.setAIUsageAllowed(e.detail.value);
-    }}"></vaadin-select>
+            this.aiUsage = e.detail.value, t.setAIUsageAllowed(e.detail.value);
+        }}"></vaadin-select>
       </div>
       ${a ? d`<div class="flex gap-2 items-start justify-between py-2">
             <label class="py-1.5" id="ai-provider">AI provider</label>
@@ -378,51 +403,53 @@ let r = class extends k {
               .items="${this.aiProviderItems}"
               .value="${this.aiProvider}"
               @value-changed="${(e) => {
-      this.aiProvider = e.detail.value, t.setAIProvider(e.detail.value);
-    }}"></vaadin-select>
+            this.aiProvider = e.detail.value, t.setAIProvider(e.detail.value);
+        }}"></vaadin-select>
           </div>` : h}
     </div>`;
-  }
-  handleHideCopilotButtonClick() {
-    this.hideCopilotDialogVisible = !0;
-  }
-  onDisableConfirm() {
-    this.hideCopilotRequestOngoing = !0, $(`${w}hide-copilot`, {}, (a) => {
-      C(a.data, {}) || (this.hideCopilotRequestOngoing = !1, window.location.reload());
-    });
-  }
+    }
+
+    handleHideCopilotButtonClick() {
+        this.hideCopilotDialogVisible = !0;
+    }
+
+    onDisableConfirm() {
+        this.hideCopilotRequestOngoing = !0, $(`${w}hide-copilot`, {}, (a) => {
+            C(a.data, {}) || (this.hideCopilotRequestOngoing = !1, window.location.reload());
+        });
+    }
 };
 c([
-  p()
+    p()
 ], r.prototype, "selectedTab", 2);
 c([
-  p()
+    p()
 ], r.prototype, "activationShortcutEnabled", 2);
 c([
-  p()
+    p()
 ], r.prototype, "aiUsage", 2);
 c([
-  p()
+    p()
 ], r.prototype, "aiProvider", 2);
 c([
-  p()
+    p()
 ], r.prototype, "hideCopilotRequestOngoing", 2);
 c([
-  p()
+    p()
 ], r.prototype, "hideCopilotDialogVisible", 2);
 r = c([
-  S("copilot-settings-panel")
+    S("copilot-settings-panel")
 ], r);
 const D = {
-  header: "Settings",
-  tag: m.SETTINGS
+    header: "Settings",
+    tag: m.SETTINGS
 }, R = {
-  init(a) {
-    a.addPanel(D);
-  }
+    init(a) {
+        a.addPanel(D);
+    }
 };
 window.Vaadin.copilot.plugins.push(R);
 export {
-  r as CopilotSettingsPanel,
-  D as panelConfig
+    r as CopilotSettingsPanel,
+    D as panelConfig
 };

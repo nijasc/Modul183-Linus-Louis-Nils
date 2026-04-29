@@ -1,5 +1,5 @@
-import { flowComponentDirective } from './flow-component-directive.js';
-import { render, html as litHtml } from 'lit';
+import {flowComponentDirective} from './flow-component-directive.js';
+import {html as litHtml, render} from 'lit';
 
 /**
  * Returns the requested node in a form suitable for Lit template interpolation.
@@ -8,7 +8,7 @@ import { render, html as litHtml } from 'lit';
  * @returns {any} a Lit directive
  */
 function getNode(appid, nodeid) {
-  return flowComponentDirective(appid, nodeid);
+    return flowComponentDirective(appid, nodeid);
 }
 
 /**
@@ -19,7 +19,7 @@ function getNode(appid, nodeid) {
  * @param {Element} root
  */
 function setChildNodes(appid, nodeIds, root) {
-  render(litHtml`${nodeIds.map((id) => flowComponentDirective(appid, id))}`, root);
+    render(litHtml`${nodeIds.map((id) => flowComponentDirective(appid, id))}`, root);
 }
 
 /**
@@ -32,16 +32,16 @@ function setChildNodes(appid, nodeIds, root) {
  * to not fail when called with invalid arguments.
  */
 function patchVirtualContainer(container) {
-  const originalInsertBefore = container.insertBefore;
+    const originalInsertBefore = container.insertBefore;
 
-  container.insertBefore = function (newNode, referenceNode) {
-    if (referenceNode && referenceNode.parentNode === this) {
-      return originalInsertBefore.call(this, newNode, referenceNode);
-    } else {
-      return originalInsertBefore.call(this, newNode, null);
-    }
-  };
+    container.insertBefore = function (newNode, referenceNode) {
+        if (referenceNode && referenceNode.parentNode === this) {
+            return originalInsertBefore.call(this, newNode, referenceNode);
+        } else {
+            return originalInsertBefore.call(this, newNode, null);
+        }
+    };
 }
 
 window.Vaadin ||= {};
-window.Vaadin.FlowComponentHost ||= { patchVirtualContainer, getNode, setChildNodes };
+window.Vaadin.FlowComponentHost ||= {patchVirtualContainer, getNode, setChildNodes};

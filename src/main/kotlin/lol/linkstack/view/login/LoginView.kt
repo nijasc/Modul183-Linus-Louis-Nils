@@ -1,14 +1,19 @@
 package lol.linkstack.view.login
 
-import com.vaadin.flow.component.card.Card
-import com.vaadin.flow.component.html.Span
+import com.vaadin.flow.component.login.LoginForm
 import com.vaadin.flow.component.orderedlayout.FlexComponent
 import com.vaadin.flow.component.orderedlayout.VerticalLayout
+import com.vaadin.flow.router.BeforeEnterEvent
+import com.vaadin.flow.router.BeforeEnterObserver
 import com.vaadin.flow.router.Route
+import com.vaadin.flow.server.auth.AnonymousAllowed
 import jakarta.annotation.PostConstruct
 
-@Route("/login")
-class LoginView: VerticalLayout() {
+@Route("/login", autoLayout = false)
+@AnonymousAllowed
+class LoginView : VerticalLayout(), BeforeEnterObserver {
+    private val loginForm = LoginForm()
+
     @PostConstruct
     fun init() {
         initLayout()
@@ -16,11 +21,10 @@ class LoginView: VerticalLayout() {
     }
 
     private fun initForm() {
-        val form = Card()
-        form.style.setPadding("2rem")
-        form.add(Span("Login"))
-        form.width = "fit-content"
-        add(form)
+        loginForm.action = "login"
+        loginForm.isForgotPasswordButtonVisible = false
+
+        add(loginForm)
     }
 
     private fun initLayout() {
@@ -28,5 +32,12 @@ class LoginView: VerticalLayout() {
         justifyContentMode = FlexComponent.JustifyContentMode.CENTER
         setWidthFull()
         setHeightFull()
+    }
+
+    override fun beforeEnter(event: BeforeEnterEvent) {
+        val hasError = event.location.queryParameters.parameters.containsKey("error")
+        if (hasError) {
+            loginForm.isError = true
+        }
     }
 }

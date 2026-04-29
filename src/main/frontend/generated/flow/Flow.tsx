@@ -14,10 +14,10 @@
  * the License.
  */
 /// <reference lib="es2018" />
-import { Flow as _Flow } from 'Frontend/generated/jar-resources/Flow.js';
-import React, { useCallback, useEffect, useReducer, useRef, useState, type ReactNode } from 'react';
-import { matchRoutes, useBlocker, useLocation, useNavigate, type NavigateOptions, useHref } from 'react-router';
-import { createPortal } from 'react-dom';
+import {Flow as _Flow} from 'Frontend/generated/jar-resources/Flow.js';
+import React, {type ReactNode, useCallback, useEffect, useReducer, useRef, useState} from 'react';
+import {matchRoutes, type NavigateOptions, useBlocker, useHref, useLocation, useNavigate} from 'react-router';
+import {createPortal} from 'react-dom';
 
 const flow = new _Flow({
     imports: () => import('Frontend/generated/flow/generated-flow-imports.js')
@@ -29,7 +29,7 @@ const router = {
     }
 };
 
-const flowReact : { active: boolean } = {
+const flowReact: { active: boolean } = {
     active: false,
 }
 
@@ -171,7 +171,7 @@ export const registerGlobalClickHandler = () => {
         }
         window.history.pushState(state, '', path);
         window.dispatchEvent(new PopStateEvent('popstate'));
-    }, { capture: false });
+    }, {capture: false});
 };
 
 /**
@@ -194,7 +194,8 @@ function fireNavigated(pathname: string, search: string) {
     });
 }
 
-function postpone() {}
+function postpone() {
+}
 
 const prevent = () => postpone;
 
@@ -212,7 +213,7 @@ type FlowPortalProps = React.PropsWithChildren<
     }>
 >;
 
-function FlowPortal({ children, domNode, onRemove }: FlowPortalProps) {
+function FlowPortal({children, domNode, onRemove}: FlowPortalProps) {
     useEffect(() => {
         domNode.addEventListener(
             'flow-portal-remove',
@@ -220,7 +221,7 @@ function FlowPortal({ children, domNode, onRemove }: FlowPortalProps) {
                 event.preventDefault();
                 onRemove();
             },
-            { once: true }
+            {once: true}
         );
     }, []);
 
@@ -263,7 +264,7 @@ function flowPortalsReducer(
         case ADD_FLOW_PORTAL:
             return [...portals, action.portal];
         case REMOVE_FLOW_PORTAL:
-            return portals.filter(({ key }) => key !== action.key);
+            return portals.filter(({key}) => key !== action.key);
         default:
             return portals;
     }
@@ -278,6 +279,7 @@ type NavigateOpts = {
 type NavigateFn = (to: string, callback: boolean, opts?: NavigateOptions) => void;
 
 let navigateInProgress = false;
+
 /**
  * A hook providing the `navigate(path: string, opts?: NavigateOptions)` function
  * with React Router API that has more consistent history updates. Uses internal
@@ -322,7 +324,7 @@ function useQueuedNavigate(
 
     const enqueueNavigation = useCallback(
         (to: string, callback: boolean, opts?: NavigateOptions) => {
-            navigateQueue.push({ to: to, callback: callback, opts: opts });
+            navigateQueue.push({to: to, callback: callback, opts: opts});
             setNavigateQueueLength(navigateQueue.length);
             if (navigateQueue.length === 1) {
                 // The first navigation can be started right after any pending sync
@@ -347,14 +349,14 @@ function useQueuedNavigate(
 }
 
 const flowNavigation = () => {
-  // @ts-ignore
-  window.Vaadin.Flow.navigation = true;
+    // @ts-ignore
+    window.Vaadin.Flow.navigation = true;
 };
 
 function Flow() {
     const ref = useRef<HTMLOutputElement>(null);
     const navigate = useNavigate();
-    const blocker = useBlocker(({ currentLocation, nextLocation }) => {
+    const blocker = useBlocker(({currentLocation, nextLocation}) => {
         navigated.current =
             navigated.current ||
             (nextLocation.pathname === currentLocation.pathname &&
@@ -441,7 +443,7 @@ function Flow() {
                 ? '/' + event.detail.url.slice(document.baseURI.length)
                 : '/' + event.detail.url;
             fromAnchor.current = false;
-            queuedNavigate(path, event.detail.callback, { state: event.detail.state, replace: event.detail.replace });
+            queuedNavigate(path, event.detail.callback, {state: event.detail.state, replace: event.detail.replace});
         },
         [navigate]
     );
@@ -449,7 +451,7 @@ function Flow() {
     const redirect = useCallback(
         (path: string) => {
             return () => {
-                navigate(path, { replace: true });
+                navigate(path, {replace: true});
             };
         },
         [navigate]
@@ -491,7 +493,7 @@ function Flow() {
             if (blockerHandled.current) {
                 // Blocker is handled and the new navigation
                 // gets queued to be executed after the current handling ends.
-                const { pathname, state } = blocker.location;
+                const {pathname, state} = blocker.location;
                 // Clear base name to not get /baseName/basename/path
                 const pathNoBase = pathname.substring(basename.length);
                 // path should always start with / else react-router will append to current url
@@ -504,7 +506,7 @@ function Flow() {
             blockerHandled.current = true;
             let blockingPromise: any;
             roundTrip.current = new Promise<void>(
-                (resolve, reject) => (blockingPromise = { resolve: resolve, reject: reject })
+                (resolve, reject) => (blockingPromise = {resolve: resolve, reject: reject})
             );
             // Release blocker handling after promise is fulfilled
             roundTrip.current.then(
@@ -521,7 +523,7 @@ function Flow() {
                 return;
             }
             fromAnchor.current = false;
-            const { pathname, search } = blocker.location;
+            const {pathname, search} = blocker.location;
             const routes = ((window as any)?.Vaadin?.routesConfig || []) as any[];
             let matched = matchRoutes(Array.from(routes), pathname);
 
@@ -530,7 +532,7 @@ function Flow() {
             if (matched && matched.filter((path) => path.route?.element?.type?.name === Flow.name).length != 0) {
                 containerRef.current?.onBeforeEnter?.call(
                     containerRef?.current,
-                    { pathname, search },
+                    {pathname, search},
                     {
                         prevent() {
                             blocker.reset();
@@ -557,7 +559,7 @@ function Flow() {
                             pathname,
                             search
                         },
-                        { prevent },
+                        {prevent},
                         router
                     )
                 ).then((cmd: unknown) => {
@@ -593,7 +595,7 @@ function Flow() {
             return;
         }
         flow.serverSideRoutes[0]
-            .action({ pathname: location.pathname, search: location.search })
+            .action({pathname: location.pathname, search: location.search})
             .then((container) => {
                 const outlet = ref.current?.parentNode;
                 if (outlet && outlet !== container.parentNode) {
@@ -603,8 +605,8 @@ function Flow() {
                 }
                 return container.onBeforeEnter?.call(
                     container,
-                  // Always add base to path as it is cleaned in getFlowRoutePath and will break a route starting with basename
-                    { pathname: basename + location.pathname, search: location.search },
+                    // Always add base to path as it is cleaned in getFlowRoutePath and will break a route starting with basename
+                    {pathname: basename + location.pathname, search: location.search},
                     {
                         prevent,
                         redirect,
@@ -624,14 +626,15 @@ function Flow() {
 
     return (
         <>
-            <output ref={ref} style={{ display: 'none' }} />
+            <output ref={ref} style={{display: 'none'}}/>
             {portals}
         </>
     );
 }
+
 Flow.type = 'FlowContainer'; // This is for copilot to recognize this
 
-export const serverSideRoutes = [{ path: '/*', element: <Flow /> }];
+export const serverSideRoutes = [{path: '/*', element: <Flow/>}];
 
 /**
  * Load the script for an exported WebComponent with the given tag

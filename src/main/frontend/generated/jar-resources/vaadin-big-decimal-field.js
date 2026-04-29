@@ -13,57 +13,57 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-import { css } from 'lit';
-import { TextField } from '@vaadin/text-field/src/vaadin-text-field.js';
-import { defineCustomElement } from '@vaadin/component-base/src/define.js';
+import {css} from 'lit';
+import {TextField} from '@vaadin/text-field/src/vaadin-text-field.js';
+import {defineCustomElement} from '@vaadin/component-base/src/define.js';
 
 class BigDecimalField extends TextField {
-  static get is() {
-    return 'vaadin-big-decimal-field';
-  }
-
-  static get lumoInjector() {
-    return { ...super.lumoInjector, is: 'vaadin-text-field' };
-  }
-
-  static get styles() {
-    return [
-      ...super.styles,
-      css`
-        :host([dir='rtl']) [part='input-field'] {
-          direction: ltr;
-        }
-
-        :host([dir='rtl']) [part='input-field'] ::slotted(input) {
-          --_lumo-text-field-overflow-mask-image: linear-gradient(to left, transparent, #000 1.25em) !important;
-        }
-      `
-    ];
-  }
-
-  static get properties() {
-    return {
-      _decimalSeparator: {
-        type: String,
-        value: '.',
-        sync: true,
-        observer: '__decimalSeparatorChanged'
-      }
-    };
-  }
-
-  ready() {
-    super.ready();
-    this.inputElement.setAttribute('inputmode', 'decimal');
-  }
-
-  __decimalSeparatorChanged(separator, oldSeparator) {
-    this.allowedCharPattern = '[-+\\d' + separator + ']';
-
-    if (this.value && oldSeparator) {
-      this.value = this.value.split(oldSeparator).join(separator);
+    static get is() {
+        return 'vaadin-big-decimal-field';
     }
-  }
+
+    static get lumoInjector() {
+        return {...super.lumoInjector, is: 'vaadin-text-field'};
+    }
+
+    static get styles() {
+        return [
+            ...super.styles,
+            css`
+                :host([dir='rtl']) [part='input-field'] {
+                    direction: ltr;
+                }
+
+                :host([dir='rtl']) [part='input-field'] ::slotted(input) {
+                    --_lumo-text-field-overflow-mask-image: linear-gradient(to left, transparent, #000 1.25em) !important;
+                }
+            `
+        ];
+    }
+
+    static get properties() {
+        return {
+            _decimalSeparator: {
+                type: String,
+                value: '.',
+                sync: true,
+                observer: '__decimalSeparatorChanged'
+            }
+        };
+    }
+
+    ready() {
+        super.ready();
+        this.inputElement.setAttribute('inputmode', 'decimal');
+    }
+
+    __decimalSeparatorChanged(separator, oldSeparator) {
+        this.allowedCharPattern = '[-+\\d' + separator + ']';
+
+        if (this.value && oldSeparator) {
+            this.value = this.value.split(oldSeparator).join(separator);
+        }
+    }
 }
 
 defineCustomElement(BigDecimalField);

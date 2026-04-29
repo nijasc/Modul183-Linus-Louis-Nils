@@ -1,29 +1,6 @@
 import './vaadin-featureflags.js';
 
 import 'Frontend/generated/jar-resources/copilot.js';
-// @ts-ignore
-if (import.meta.hot) {
-  // @ts-ignore
-  import.meta.hot.on('vite:beforeUpdate', (e:any) => {
-    if ((window as any).Vaadin.copilot?.disableViteHmr) {
-        e.updates = [];
-    }
-  });
-  // @ts-ignore
-  import.meta.hot.on('vite:beforeFullReload', (payload:any) => {
-    if ((window as any).Vaadin.copilot?.disableViteHmr) {
-        payload.path = "something-not-used-in-the-app-to-prevent-reload.html";
-    }
-  });
-  // @ts-ignore
-  import.meta.hot.on('vite:afterUpdate', () => {
-    const eventbus = (window as any).Vaadin.copilot.eventbus;
-    if (eventbus) {
-      eventbus.emit('vite-after-update',{});
-    }
-  });
-}
-
 import '@vaadin/vertical-layout/vaadin-vertical-layout.js';
 import '@vaadin/horizontal-layout/vaadin-horizontal-layout.js';
 import '@vaadin/context-menu/vaadin-context-menu.js';
@@ -55,11 +32,28 @@ import 'Frontend/generated/jar-resources/vaadin-dev-tools/vaadin-dev-tools.js';
 
 import './app-shell-imports.js';
 import './css.generated.js';
-import { applyCss } from './css.generated.js';
-applyCss(document);
+import {applyCss} from './css.generated.js';
+// @ts-ignore
+if (import.meta.hot) {
+    // @ts-ignore
+    import.meta.hot.on('vite:beforeUpdate', (e: any) => {
+        if ((window as any).Vaadin.copilot?.disableViteHmr) {
+            e.updates = [];
+        }
+    });
+    // @ts-ignore
+    import.meta.hot.on('vite:beforeFullReload', (payload: any) => {
+        if ((window as any).Vaadin.copilot?.disableViteHmr) {
+            payload.path = "something-not-used-in-the-app-to-prevent-reload.html";
+        }
+    });
+    // @ts-ignore
+    import.meta.hot.on('vite:afterUpdate', () => {
+        const eventbus = (window as any).Vaadin.copilot.eventbus;
+        if (eventbus) {
+            eventbus.emit('vite-after-update', {});
+        }
+    });
+}
 
-import { Outlet } from 'react-router';
-(window as any).Vaadin ??= {};
-(window as any).Vaadin.copilot ??= {};
-(window as any).Vaadin.copilot._ref ??= {};
-(window as any).Vaadin.copilot._ref.Outlet = Outlet;
+applyCss(document);

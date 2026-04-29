@@ -5,10 +5,12 @@ import com.vaadin.flow.component.html.Anchor
 import com.vaadin.flow.component.orderedlayout.FlexComponent
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout
 import com.vaadin.flow.router.Layout
+import com.vaadin.flow.server.auth.AnonymousAllowed
 import jakarta.annotation.PostConstruct
 
 @Layout
-class AppLayout: AppLayout() {
+@AnonymousAllowed
+class AppLayout : AppLayout() {
     @PostConstruct
     fun init() {
         initNavbar()
@@ -22,7 +24,8 @@ class AppLayout: AppLayout() {
         authLayout.justifyContentMode = FlexComponent.JustifyContentMode.END
         val loginLink = Anchor("/login", "Login")
         val signupLink = Anchor("/signup", "Sign Up")
-        authLayout.add(loginLink, signupLink)
+        val dashboardLink = Anchor("/dashboard", "Dashboard")
+        authLayout.add(loginLink, signupLink, dashboardLink)
         authLayout.style.setPaddingRight("1rem")
         homeLink.style.setPaddingLeft("1rem")
         addToNavbar(homeLink, authLayout)
