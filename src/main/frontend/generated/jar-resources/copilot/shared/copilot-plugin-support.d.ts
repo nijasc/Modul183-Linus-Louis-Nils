@@ -1,22 +1,18 @@
-import {IObservableValue} from 'mobx';
-import {TemplateResult} from 'lit';
-import {IconKeyType} from './icons';
-import {CopilotExperimentalFeature} from './copilot-experimental-features';
-import {CopilotActiveMode} from './copilot-modes';
-
+import { IObservableValue } from 'mobx';
+import { TemplateResult } from 'lit';
+import { IconKeyType } from './icons';
+import { CopilotExperimentalFeature } from './copilot-experimental-features';
+import { CopilotActiveMode } from './copilot-modes';
 /**
  * Plugin API for the dev tools window.
  */
 export interface CopilotInterface {
     send(command: string, data: any): void;
-
     addPanel(panel: PanelConfiguration): void;
 }
-
 export interface MessageHandler {
     handleMessage(message: ServerMessage): boolean;
 }
-
 export interface ServerMessage {
     /**
      * The command
@@ -27,9 +23,7 @@ export interface ServerMessage {
      */
     data: any;
 }
-
 export type Framework = 'flow' | 'hilla-lit' | 'hilla-react';
-
 export interface CopilotPlugin {
     /**
      * Called once to initialize the plugin.
@@ -38,13 +32,11 @@ export interface CopilotPlugin {
      */
     init(copilotInterface: CopilotInterface): void;
 }
-
 export declare enum MessageType {
     INFORMATION = "information",
     WARNING = "warning",
     ERROR = "error"
 }
-
 export interface Message {
     id: number;
     type: MessageType;
@@ -56,7 +48,6 @@ export interface Message {
     dontShowAgain: boolean;
     deleted: boolean;
 }
-
 /**
  * Known Copilot panel tags used throughout the application.
  * This object serves as a registry of all panel identifiers.
@@ -97,7 +88,6 @@ export declare const CopilotPanelTags: {
 export type CopilotPanelTag = (typeof CopilotPanelTags)[keyof typeof CopilotPanelTags];
 export type CopilotActiveModeAndCommon = CopilotActiveMode | 'common';
 type CopilotActiveModeOrderMap = Partial<Record<CopilotActiveModeAndCommon, number>>;
-
 export interface PanelConfiguration {
     header: string;
     tag: CopilotPanelTag;
@@ -128,7 +118,6 @@ export interface PanelConfiguration {
         iconKey: IconKeyType;
     };
 }
-
 /**
  * Checks if a given tag belongs to a public (Apache 2.0) panel.
  *
@@ -136,5 +125,4 @@ export interface PanelConfiguration {
  * @returns true if the tag is from a public panel, false otherwise
  */
 export declare function isPublicPanel(tag: CopilotPanelTag): boolean;
-
 export {};

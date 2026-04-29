@@ -6,5 +6,8 @@ spring:
     password: ${DB_PASSWORD}
     name: ${DB_NAME}
     url: jdbc:postgresql://${DB_HOST}:5173
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
 vaadin:
   launch-browser: false

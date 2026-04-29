@@ -1,7 +1,9 @@
 package lol.linkstack.view.login
 
+import com.vaadin.flow.component.html.Anchor
 import com.vaadin.flow.component.login.LoginForm
 import com.vaadin.flow.component.orderedlayout.FlexComponent
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout
 import com.vaadin.flow.component.orderedlayout.VerticalLayout
 import com.vaadin.flow.router.BeforeEnterEvent
 import com.vaadin.flow.router.BeforeEnterObserver
@@ -25,6 +27,11 @@ class LoginView : VerticalLayout(), BeforeEnterObserver {
         loginForm.isForgotPasswordButtonVisible = false
 
         add(loginForm)
+        val noAccount = HorizontalLayout()
+        val signupAnchor = Anchor("/signup","Create one here.")
+        noAccount.add("Don't have an account?")
+        noAccount.add(signupAnchor)
+        add(noAccount)
     }
 
     private fun initLayout() {

@@ -1,6 +1,5 @@
-import {ax as i, ay as a} from "./copilot/copilot-CDIH58Wx.js";
-
+import { ay as a, ax as i } from "./copilot/copilot-CDIH58Wx.js";
 export {
-    a as createChildrenDefinitions,
-    i as registerImporter
+  a as createChildrenDefinitions,
+  i as registerImporter
 };
