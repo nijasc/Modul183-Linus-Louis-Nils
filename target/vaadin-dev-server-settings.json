@@ -1,0 +1,19 @@
+{
+  "frontendFolder": "/Users/nils/dev/tools/linkstack/./src/main/frontend",
+  "themeFolder": "themes",
+  "themeResourceFolder": "/Users/nils/dev/tools/linkstack/./src/main/frontend/generated/jar-resources",
+  "staticOutput": "/Users/nils/dev/tools/linkstack/target/classes/META-INF/VAADIN/webapp/VAADIN/static",
+  "generatedFolder": "generated",
+  "statsOutput": "/Users/nils/dev/tools/linkstack/target/classes/META-INF/VAADIN/config",
+  "frontendBundleOutput": "/Users/nils/dev/tools/linkstack/target/classes/META-INF/VAADIN/webapp",
+  "devBundleOutput": "/Users/nils/dev/tools/linkstack/target/dev-bundle/webapp",
+  "devBundleStatsOutput": "/Users/nils/dev/tools/linkstack/target/dev-bundle/config",
+  "i18nOutput": "target/classes/vaadin-i18n",
+  "jarResourcesFolder": "/Users/nils/dev/tools/linkstack/./src/main/frontend/generated/jar-resources",
+  "javaResourceFolder": "/Users/nils/dev/tools/linkstack/src/main/resources",
+  "themeName": "",
+  "clientServiceWorkerSource": "/Users/nils/dev/tools/linkstack/target/sw.ts",
+  "pwaEnabled": false,
+  "offlineEnabled": false,
+  "offlinePath": "'offline.html'"
+}

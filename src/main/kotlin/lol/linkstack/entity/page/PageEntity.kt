@@ -12,7 +12,6 @@ class PageEntity : BaseEntity() {
     @JoinColumn(name = "user_id")
     var user: UserEntity? = null
 
-    @OneToMany(cascade = [CascadeType.REMOVE], orphanRemoval = true, fetch = FetchType.EAGER)
-    @JoinColumn(name = "page_id")
+    @OneToMany(mappedBy = "page", cascade = [CascadeType.ALL], orphanRemoval = true, fetch = FetchType.EAGER)
     var links: MutableSet<LinkEntity> = mutableSetOf()
 }

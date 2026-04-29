@@ -7,5 +7,5 @@ import com.vaadin.flow.component.page.ColorScheme.Value
 import com.vaadin.flow.theme.lumo.Lumo
 
 @StyleSheet(Lumo.STYLESHEET)
-@ColorScheme(Value.DARK)
+@ColorScheme(Value.LIGHT)
 class VaadinConfig : AppShellConfigurator

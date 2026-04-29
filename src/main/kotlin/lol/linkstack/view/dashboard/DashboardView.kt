@@ -5,18 +5,20 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout
 import com.vaadin.flow.router.Route
 import jakarta.annotation.PostConstruct
 import jakarta.annotation.security.PermitAll
+import lol.linkstack.service.page.ManagePageService
 import lol.linkstack.service.user.UserService
 import lol.linkstack.view.dashboard.component.EditLinksComponent
 
 @Route("/dashboard")
 @PermitAll
 class DashboardView(
-    private val userService: UserService
+    private val userService: UserService,
+    private val managePageService: ManagePageService
 ) : VerticalLayout() {
     @PostConstruct
     fun init() {
         val username = userService.getProfile()
-        add(Card().apply { add("Hello Authenticated user. ($username)") })
-        add(EditLinksComponent())
+        add(Card().apply { add("Hello $username") })
+        add(EditLinksComponent(managePageService))
     }
 }

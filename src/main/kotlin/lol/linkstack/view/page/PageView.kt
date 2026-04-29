@@ -1,47 +1,48 @@
 package lol.linkstack.view.page
 
-import com.vaadin.flow.component.card.Card
-import com.vaadin.flow.component.html.Anchor
-import com.vaadin.flow.component.html.Paragraph
-import com.vaadin.flow.component.icon.Icon
+import com.vaadin.flow.component.orderedlayout.FlexComponent
 import com.vaadin.flow.component.orderedlayout.VerticalLayout
 import com.vaadin.flow.router.BeforeEvent
 import com.vaadin.flow.router.HasUrlParameter
 import com.vaadin.flow.router.Route
 import com.vaadin.flow.server.auth.AnonymousAllowed
-import jakarta.annotation.PostConstruct
 import lol.linkstack.dto.page.PageDto
 import lol.linkstack.service.page.PageService
+import lol.linkstack.view.page.component.PageHeaderComponent
+import lol.linkstack.view.page.component.PageLinksComponent
 
 @Route("/")
 @AnonymousAllowed
 class PageView(
     private val pageService: PageService
 ) : VerticalLayout(), HasUrlParameter<String> {
-    private val userExistsParagraph = Paragraph()
 
-    @PostConstruct
-    fun init() {
-        add(userExistsParagraph)
+    init {
+        isPadding = false
+        isSpacing = false
+        justifyContentMode = FlexComponent.JustifyContentMode.CENTER
+        defaultHorizontalComponentAlignment = FlexComponent.Alignment.CENTER
     }
 
     override fun setParameter(before: BeforeEvent, value: String) {
-        val exists = pageService.pageExists(value)
-        userExistsParagraph.text = "User exists: $exists"
-        if (exists) {
-            val page = pageService.getPage(value)
-            init(page)
+        if (!pageService.pageExists(value)) {
+            showNotFound(value)
+            return
         }
+        val page = pageService.getPageAndIncrementViews(value)
+        renderPage(page)
     }
 
-    private fun init(page: PageDto) {
-        add("Views: ${page.views}")
-        page.links.forEach {
-            val card = Card()
-            card.add(Icon(it.icon))
-            card.add(Anchor(it.href, it.name))
+    private fun renderPage(page: PageDto) {
+        removeAll()
+        add(PageHeaderComponent(page.owner, page.views))
+        add(PageLinksComponent(page.links))
+    }
 
-        }
-        add("Page: ${page.owner}")
+    private fun showNotFound(username: String) {
+        removeAll()
+        add(
+            com.vaadin.flow.component.html.Div("User '$username' not found")
+                .apply { style.set("color", "var(--lumo-error-color-50pct)") })
     }
 }
