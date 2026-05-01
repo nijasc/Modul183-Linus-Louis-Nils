@@ -1,3 +1,5 @@
+import { injectGlobalWebcomponentCss } from 'Frontend/generated/jar-resources/theme-util.js';
+
 import '@vaadin/field-highlighter/src/vaadin-field-highlighter.js';
 import '@vaadin/common-frontend/ConnectionIndicator.js';
 import '@vaadin/accordion/src/vaadin-accordion.js';
@@ -90,15 +92,12 @@ import 'Frontend/generated/jar-resources/vaadin-upload-manager-connector.ts';
 import '@vaadin/virtual-list/src/vaadin-virtual-list.js';
 import 'Frontend/generated/jar-resources/virtualListConnector.js';
 import '@vaadin/vaadin-lumo-styles/vaadin-iconset.js';
-
-const loadOnDemand = (key) => {
-    return Promise.resolve(0);
-}
+const loadOnDemand = (key) => { return Promise.resolve(0); }
 window.Vaadin = window.Vaadin || {};
 window.Vaadin.Flow = window.Vaadin.Flow || {};
 window.Vaadin.Flow.loadOnDemand = loadOnDemand;
 window.Vaadin.Flow.resetFocus = () => {
-    let ae = document.activeElement;
-    while (ae && ae.shadowRoot) ae = ae.shadowRoot.activeElement;
-    return !ae || ae.blur() || ae.focus() || true;
+ let ae=document.activeElement;
+ while(ae&&ae.shadowRoot) ae = ae.shadowRoot.activeElement;
+ return !ae || ae.blur() || ae.focus() || true;
 }
