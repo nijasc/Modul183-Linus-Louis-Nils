@@ -38,7 +38,7 @@ class UserServiceTest @Autowired constructor(
         assertNotNull(user)
         assertNotNull(user!!.page.id)
         assertNotEquals("secretpw1", user.passwordHash)
-        assertTrue(user.passwordHash.startsWith("\$2"), "Password should be BCrypt encoded")
+        assertTrue(user.passwordHash.startsWith($$"$2"), "Password should be BCrypt encoded")
         assertTrue(passwordEncoder.matches("secretpw1", user.passwordHash))
     }
 

@@ -17,7 +17,7 @@ import lol.linkstack.constants.CssProperty
 import lol.linkstack.constants.CssToken
 import lol.linkstack.constants.JsScripts
 
-class SharePageDialog(private val username: String) : Dialog() {
+class SharePageDialog(username: String) : Dialog() {
 
     init {
         headerTitle = "Share your profile"

@@ -18,9 +18,9 @@ class PageCommentDrawer(
     commentService: CommentService,
     pageOwnerUsername: String,
     private val textColor: String,
-    private val cardColor: String,
+    cardColor: String,
     private val iconColor: String,
-    private val backgroundColor: String
+    backgroundColor: String
 ) : Div() {
 
     private val backdrop = Div().apply {
@@ -34,7 +34,6 @@ class PageCommentDrawer(
         commentService = commentService,
         pageOwnerUsername = pageOwnerUsername,
         textColor = textColor,
-        cardColor = cardColor,
         iconColor = iconColor,
         onCountChanged = { count -> updateCount(count) }
     )

@@ -111,6 +111,6 @@ class LogoutView : VerticalLayout() {
         private const val CARD_WIDTH = "420px"
         private const val ICON_SIZE = "2.5rem"
         private const val ANONYMOUS = "anonymousUser"
-        private val LOGIN_AFTER_LOGOUT = "${Routes.LOGIN}?logout"
+        private const val LOGIN_AFTER_LOGOUT = "${Routes.LOGIN}?logout"
     }
 }

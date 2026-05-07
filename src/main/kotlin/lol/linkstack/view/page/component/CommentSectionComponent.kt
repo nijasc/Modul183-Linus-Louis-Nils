@@ -27,7 +27,6 @@ class CommentSectionComponent(
     private val commentService: CommentService,
     private val pageOwnerUsername: String,
     private val textColor: String,
-    private val cardColor: String,
     private val iconColor: String = CssToken.LUMO_PRIMARY_COLOR,
     private val onCountChanged: (Int) -> Unit = {}
 ) {

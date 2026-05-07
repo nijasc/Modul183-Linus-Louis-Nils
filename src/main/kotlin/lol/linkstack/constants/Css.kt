@@ -36,7 +36,6 @@ object CssProperty {
     const val MARGIN = "margin"
     const val MARGIN_TOP = "margin-top"
     const val MARGIN_BOTTOM = "margin-bottom"
-    const val MARGIN_LEFT = "margin-left"
     const val MARGIN_RIGHT = "margin-right"
     const val PADDING = "padding"
     const val WIDTH = "width"
@@ -59,11 +58,9 @@ object CssProperty {
     const val TRANSFORM = "transform"
     const val TRANSITION = "transition"
     const val ANIMATION = "animation"
-    const val LINE_HEIGHT = "line-height"
     const val FONT_FAMILY = "font-family"
     const val MIN_HEIGHT = "min-height"
     const val BACKGROUND = "background"
-    const val JUSTIFY_CONTENT = "justify-content"
     const val ALIGN_ITEMS = "align-items"
 }
 
@@ -86,7 +83,6 @@ object CssEvent {
 object CssToken {
     const val LUMO_PRIMARY_COLOR = "var(--lumo-primary-color)"
     const val LUMO_PRIMARY_COLOR_10PCT = "var(--lumo-primary-color-10pct)"
-    const val LUMO_SECONDARY_COLOR_10PCT = "var(--lumo-secondary-color-10pct)"
     const val LUMO_SECONDARY_TEXT_COLOR = "var(--lumo-secondary-text-color)"
     const val LUMO_BODY_TEXT_COLOR = "var(--lumo-body-text-color)"
     const val LUMO_BASE_COLOR = "var(--lumo-base-color)"
@@ -102,7 +98,6 @@ object CssToken {
         "linear-gradient(135deg, var(--lumo-primary-color-10pct), var(--lumo-secondary-color-10pct))"
 
     const val FADE_IN_ANIMATION = "ls-fade-in 0.5s ease both"
-    const val FADE_IN_ANIMATION_LONG = "ls-fade-in 0.6s ease both"
     const val FADE_IN_ANIMATION_SHORT = "ls-fade-in 0.4s ease both"
 
     const val WHITE = "#fff"

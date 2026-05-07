@@ -45,12 +45,12 @@ class EditLinksComponent(
         grid.addColumn { it.name }.setHeader("Name").setFlexGrow(1)
         grid.addColumn { it.href }.setHeader("URL").setFlexGrow(2)
         grid.addColumn(
-            ComponentRenderer<Icon, LinkDto> { link ->
+            ComponentRenderer { link ->
                 Icon(link.icon).apply { style.set(CssProperty.COLOR, link.iconColor) }
             }
         ).setHeader("Icon").setFlexGrow(0).setWidth(ICON_COL_WIDTH)
         grid.addColumn(
-            ComponentRenderer<Button, LinkDto> { link ->
+            ComponentRenderer { link ->
                 Button(VaadinIcon.TRASH.create()) {
                     runSafely { managePageService.removeLink(link.id) }
                     refreshGrid()

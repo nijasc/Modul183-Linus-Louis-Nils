@@ -50,7 +50,7 @@ class CommentsManagementComponent(
         grid.addColumn { formatDate(it.createdAt) }.setHeader("Date").setFlexGrow(1)
         grid.addColumn { "${it.likes}" }.setHeader("Likes").setFlexGrow(0).setWidth(LIKES_COL_WIDTH)
         grid.addColumn(
-            ComponentRenderer<HorizontalLayout, CommentDto> { comment -> renderActions(comment) }
+            ComponentRenderer { comment -> renderActions(comment) }
         ).setHeader("Actions").setFlexGrow(0).setWidth(ACTIONS_COL_WIDTH)
     }
 
