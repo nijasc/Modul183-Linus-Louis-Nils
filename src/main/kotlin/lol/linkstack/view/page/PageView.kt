@@ -151,7 +151,7 @@ class PageView(
 
     override fun getPageTitle(): String {
         val handle = username.removePrefix(USERNAME_PREFIX)
-        return if (handle.isBlank()) APP_NAME else "@$handle · $APP_NAME"
+        return if (handle.isBlank()) APP_NAME else "@$handle - $APP_NAME"
     }
 
     companion object {
