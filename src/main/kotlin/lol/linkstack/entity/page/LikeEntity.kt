@@ -1,13 +1,11 @@
 package lol.linkstack.entity.page
 
-import jakarta.persistence.Entity
-import jakarta.persistence.FetchType
-import jakarta.persistence.JoinColumn
-import jakarta.persistence.ManyToOne
+import jakarta.persistence.*
 import lol.linkstack.entity.BaseEntity
 import lol.linkstack.entity.user.UserEntity
 
 @Entity
+@Table(name = "likes")
 class LikeEntity : BaseEntity() {
 
     @ManyToOne(fetch = FetchType.LAZY)

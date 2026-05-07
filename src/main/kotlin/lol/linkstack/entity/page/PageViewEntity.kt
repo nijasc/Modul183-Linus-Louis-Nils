@@ -4,7 +4,7 @@ import jakarta.persistence.*
 import lol.linkstack.entity.BaseEntity
 
 @Entity
-@Table(uniqueConstraints = [UniqueConstraint(columnNames = ["ip_address", "page_id"])])
+@Table(uniqueConstraints = [UniqueConstraint(columnNames = ["ip_address", "page_id"])], name = "page_views")
 class PageViewEntity : BaseEntity() {
 
     @Column(name = "ip_address", nullable = false, length = 64)

@@ -6,8 +6,9 @@ import lol.linkstack.entity.BaseEntity
 import lol.linkstack.entity.user.UserEntity
 
 @Entity
+@Table(name = "comments")
 class CommentEntity : BaseEntity() {
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "content", columnDefinition = "TEXT")
     var content: String = ""
 
     @ManyToOne(fetch = FetchType.LAZY)

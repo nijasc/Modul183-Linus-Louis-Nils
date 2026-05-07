@@ -1,8 +1,6 @@
 package lol.linkstack.entity.user
 
-import jakarta.persistence.Entity
-import jakarta.persistence.JoinColumn
-import jakarta.persistence.OneToOne
+import jakarta.persistence.*
 import lol.linkstack.entity.BaseEntity
 import lol.linkstack.entity.page.PageEntity
 import org.springframework.security.core.GrantedAuthority
@@ -10,8 +8,12 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
 @Entity
+@Table(name = "users")
 class UserEntity : BaseEntity(), UserDetails {
+    @Column(name = "username")
     var name: String = ""
+
+    @Column(name = "password_hash")
     var passwordHash: String = ""
 
     @OneToOne
