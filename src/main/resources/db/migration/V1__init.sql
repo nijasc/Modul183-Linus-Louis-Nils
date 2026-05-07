@@ -37,7 +37,6 @@ CREATE TABLE page_entity
     id               UUID                        NOT NULL,
     updated_at       TIMESTAMP WITHOUT TIME ZONE NOT NULL,
     created_at       TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-    views            INTEGER                     NOT NULL,
     user_id          UUID,
     background_color VARCHAR(255)                NOT NULL,
     text_color       VARCHAR(255)                NOT NULL,
@@ -52,7 +51,9 @@ CREATE TABLE page_view_entity
     id         UUID                        NOT NULL,
     updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
     created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-    ip_address VARCHAR(255)                NOT NULL,
+    ip_address VARCHAR(64)                 NOT NULL,
+    user_agent VARCHAR(512),
+    referer    VARCHAR(512),
     page_id    UUID,
     CONSTRAINT pk_pageviewentity PRIMARY KEY (id)
 );
