@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT:5432}/${DB_NAME}
+  docker:
+    compose:
+      enabled: false
+  jpa:
+    show-sql: false
+  web:
+    error:
+      include-stacktrace: never
+      include-message: never
+
+server:
+  servlet:
+    session:
+      cookie:
+        http-only: true
+        secure: true
+        same-site: strict
+
+logging:
+  level:
+    root: WARN
+    lol.linkstack: INFO
+
+linkstack:
+  security:
+    rate-limit:
+      login-max-attempts: 5
+      login-window-seconds: 300

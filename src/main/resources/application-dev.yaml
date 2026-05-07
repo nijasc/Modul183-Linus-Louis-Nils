@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME}
+  docker:
+    compose:
+      lifecycle-management: start_only
+      enabled: true
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+logging:
+  level:
+    root: INFO
+    lol.linkstack: DEBUG
+    org.springframework.security: INFO
+
+
+linkstack:
+  security:
+    rate-limit:
+      login-max-attempts: 10
+      login-window-seconds: 60

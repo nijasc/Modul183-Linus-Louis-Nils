@@ -2,8 +2,8 @@ package lol.linkstack.view.signup
 
 import com.vaadin.flow.component.UI
 import com.vaadin.flow.component.button.Button
+import com.vaadin.flow.component.button.ButtonVariant
 import com.vaadin.flow.component.card.Card
-import com.vaadin.flow.component.html.Anchor
 import com.vaadin.flow.component.html.H2
 import com.vaadin.flow.component.html.Paragraph
 import com.vaadin.flow.component.icon.Icon
@@ -13,36 +13,35 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout
 import com.vaadin.flow.component.orderedlayout.VerticalLayout
 import com.vaadin.flow.component.textfield.PasswordField
 import com.vaadin.flow.component.textfield.TextField
-import com.vaadin.flow.dom.Style
 import com.vaadin.flow.router.Route
 import com.vaadin.flow.server.auth.AnonymousAllowed
 import jakarta.annotation.PostConstruct
 import jakarta.validation.ConstraintViolationException
+import lol.linkstack.constants.CssProperty
+import lol.linkstack.constants.CssToken
+import lol.linkstack.constants.Routes
 import lol.linkstack.dto.SignUpDto
 import lol.linkstack.service.user.UserService
 import lol.linkstack.view.login.LoginView
 
-@Route("/signup", autoLayout = false)
+@Route(value = "signup", autoLayout = false)
 @AnonymousAllowed
 class SignupView(
     private val userService: UserService
 ) : VerticalLayout() {
-    private val layout = VerticalLayout().apply {
-        setWidth("fit-content")
-    }
-    private val errorLayout = Card().apply {
+
+    private val errorBox = Card().apply {
         isVisible = false
-        style.setBackground("var(--lumo-error-color-50pct)")
-        style.setFlexDirection(Style.FlexDirection.COLUMN)
+        style.set(CssProperty.BACKGROUND_COLOR, CssToken.LUMO_ERROR_COLOR_10PCT)
+        style.set(CssProperty.BORDER, "1px solid ${CssToken.LUMO_ERROR_COLOR}")
+        style.set(CssProperty.PADDING, "0.75rem")
         setWidthFull()
-        add(Icon(VaadinIcon.CLOSE))
-        layout.add(this)
     }
 
     @PostConstruct
     fun init() {
         initLayout()
-        initForm()
+        add(buildForm())
     }
 
     private fun initLayout() {
@@ -50,67 +49,78 @@ class SignupView(
         setHeightFull()
         alignItems = FlexComponent.Alignment.CENTER
         justifyContentMode = FlexComponent.JustifyContentMode.CENTER
-
-        add(layout)
+        style.set(CssProperty.BACKGROUND, CssToken.GRADIENT_PRIMARY_SECONDARY)
     }
 
-    private fun initForm() {
-        val form = Card().apply {
-            style.setFlexDirection(Style.FlexDirection.COLUMN)
-        }
-
-        form.add(H2("Sign up"))
-        val alreadyHaveAccount = HorizontalLayout()
-        alreadyHaveAccount.add("Already have an account?")
-        val loginAnchor = Anchor("/login", "Login here.")
-        alreadyHaveAccount.add(loginAnchor)
-
-        val usernameField = TextField("Username", "Username").apply {
+    private fun buildForm(): Card {
+        val usernameField = TextField("Username").apply {
+            placeholder = "Choose a username"
             setWidthFull()
+            prefixComponent = Icon(VaadinIcon.USER)
         }
-        val passwordField = PasswordField("Password", "Password").apply {
+        val passwordField = PasswordField("Password").apply {
+            placeholder = "Create a strong password"
             setWidthFull()
+            prefixComponent = Icon(VaadinIcon.LOCK)
         }
-        val signUpButton = Button("Sign Up").apply {
+        val signUpButton = Button("Create Account", Icon(VaadinIcon.CHECK)).apply {
             setWidthFull()
+            addThemeVariants(ButtonVariant.LUMO_PRIMARY, ButtonVariant.LUMO_LARGE)
             addClickListener {
-                val signUp = SignUpDto(
-                    username = usernameField.value,
-                    password = passwordField.value
-                )
-                handleSignUp(signUp)
+                handleSignUp(SignUpDto(usernameField.value, passwordField.value))
             }
         }
 
-        form.add(usernameField, passwordField, signUpButton)
-        form.add(alreadyHaveAccount)
-        layout.add(form)
-    }
-
-    private fun setError(text: String?) {
-        errorLayout.removeAll()
-        if (text.isNullOrBlank()) {
-            errorLayout.isVisible = false
-            return
+        val loginRow = HorizontalLayout(
+            Paragraph("Already have an account?").apply { style.set(CssProperty.MARGIN, "0") },
+            Button("Log in", Icon(VaadinIcon.SIGN_IN)).apply {
+                addThemeVariants(ButtonVariant.LUMO_TERTIARY_INLINE)
+                addClickListener { ui.ifPresent { it.page.setLocation(Routes.LOGIN) } }
+            }
+        ).apply {
+            isPadding = false
+            alignItems = FlexComponent.Alignment.CENTER
         }
-        errorLayout.isVisible = true
-        errorLayout.add(text)
+
+        return Card().apply {
+            style.set(CssProperty.PADDING, "2rem")
+            style.set(CssProperty.BORDER_RADIUS, "8px")
+            width = FORM_WIDTH
+            add(
+                VerticalLayout(
+                    H2("Create Your Account").apply { style.set(CssProperty.MARGIN_BOTTOM, "0.5rem") },
+                    Paragraph("Join Linkstack and start sharing your links").apply {
+                        style.set(CssProperty.COLOR, CssToken.LUMO_SECONDARY_TEXT_COLOR)
+                        style.set(CssProperty.MARGIN_TOP, "0")
+                    },
+                    errorBox,
+                    usernameField,
+                    passwordField,
+                    signUpButton,
+                    loginRow
+                ).apply {
+                    isPadding = false
+                    isSpacing = true
+                    setWidthFull()
+                }
+            )
+        }
     }
 
     private fun setErrors(errors: List<String>) {
+        errorBox.removeAll()
         if (errors.isEmpty()) {
-            setError(null)
+            errorBox.isVisible = false
             return
         }
-        if (errors.size == 1) {
-            setError(errors[0])
-            return
-        }
-        errorLayout.removeAll()
-        errorLayout.isVisible = true
+        errorBox.isVisible = true
         errors.forEach {
-            errorLayout.add(Paragraph("- $it"))
+            errorBox.add(Paragraph("- $it").apply { style.set(CssProperty.MARGIN, "0.25rem 0") })
         }
+    }
+
+    private fun setError(text: String?) {
+        if (text.isNullOrBlank()) setErrors(emptyList()) else setErrors(listOf(text))
     }
 
     private fun handleSignUp(signUp: SignUpDto) {
@@ -118,13 +128,14 @@ class SignupView(
         try {
             userService.signUp(signUp)
             UI.getCurrent().navigate(LoginView::class.java)
-        } catch (e: Exception) {
-            if (e is ConstraintViolationException) {
-                val errorMessages = e.constraintViolations.map { it.message }
-                setErrors(errorMessages)
-                return
-            }
-            setError(e.message)
+        } catch (ex: ConstraintViolationException) {
+            setErrors(ex.constraintViolations.map { it.message })
+        } catch (ex: Exception) {
+            setError(ex.message ?: "Sign up failed")
         }
+    }
+
+    companion object {
+        private const val FORM_WIDTH = "400px"
     }
 }

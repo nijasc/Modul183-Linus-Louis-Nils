@@ -1,4 +1,5 @@
 node_modules
+target/
 HELP.md
 .gradle
 build/
@@ -43,3 +44,12 @@ out/
 ### DotEnv ###
 .env
 local.env
+
+### Vaadin ###
+/src/main/frontend
+package-lock.json
+package.json
+tsconfig.json
+types.d.ts
+vite.config.ts
+vite.generated.ts

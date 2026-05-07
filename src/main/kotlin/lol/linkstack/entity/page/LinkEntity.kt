@@ -12,6 +12,8 @@ class LinkEntity : BaseEntity() {
     @Enumerated(EnumType.STRING)
     var icon: VaadinIcon = VaadinIcon.EXTERNAL_LINK
 
+    var iconColor: String = "#197de1"
+
     @ManyToOne
     @JoinColumn(name = "page_id")
     var page: PageEntity? = null

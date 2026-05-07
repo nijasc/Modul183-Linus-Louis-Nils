@@ -10,28 +10,47 @@
 
 ---
 
-## Geplante Features
+## Features
 
 ### Authentication
 
 - Login
 - Registrierung
 - Logout
+- Secure password encoding (BCrypt)
+- CSRF protection
+- Secure cookies
 
-### Edit Page
+### Profile Page
+
+- Custom URL (@username)
+- View counter (unique per IP)
+- Custom styling options (background color, text color, card color, icon color)
+- Responsive design
+
+### Link Management
 
 - Links hinzufügen und entfernen
-- Grundlegende Styling-Optionen
-- Optional:
-    - Discord RPC Integration
-    - Spotify Integration
+- Custom icons from icon grid picker (over 600+ Vaadin icons)
+- Custom icon colors
+- Drag-and-drop support (coming soon)
 
 ### Community Features
 
 - Kommentare auf Profilen
-    - Kommentare hinzufügen
+    - Kommentare hinzufügen (when logged in)
     - Eigene Kommentare löschen
-    - Kommentare liken
+    - Eigene Kommentare bearbeiten
+    - Kommentare liken/disliken
+    - Manage comments on dashboard (delete any comment on your page)
+- Profile views tracking (unique per IP address)
+
+### Dashboard
+
+- Modern, tabbed interface
+- Link management with icon grid picker
+- Comment management (view, edit, delete)
+- Page style customization (colors)
 
 ---
 
@@ -82,3 +101,33 @@
 3. Projekt in IntelliJ IDEA öffnen
 
 4. Projekt mit der vordefinierten "Run"-Konfiguration starten
+
+---
+
+## New Features & Improvements
+
+### Latest Updates:
+
+- ✅ NAVBAR: Login/Signup only visible to non-logged in users
+- ✅ NAVBAR: Dashboard button only visible to logged in users
+- ✅ PROFILE: Views only increment once per IP address
+- ✅ HOMEPAGE: Modern homepage with hero section, features, how it works, and CTA
+- ✅ STYLING: All pages restyled with modern, clean design
+- ✅ COMMENTS: Full comment system with add, edit, delete
+- ✅ COMMENTS: Like system for comments
+- ✅ COMMENTS: Site owner can delete any comment on their page
+- ✅ COMMENTS: Users can edit and delete their own comments
+- ✅ DASHBOARD: Comment management section
+- ✅ DASHBOARD: Modern tabbed interface
+- ✅ ICONS: Replaced combobox with visual icon grid picker
+- ✅ ICONS: Added icon colors for links
+- ✅ STYLING: Page style customization (background, text, card, icon colors)
+- ✅ UI/UX: Smooth animations and transitions
+- ✅ UI/UX: More icons throughout the app
+- ✅ UI/UX: Modern cards with hover effects
+- ✅ SECURITY: CSRF protection enabled
+- ✅ SECURITY: Content Security Policy headers
+- ✅ SECURITY: Secure headers (X-Frame-Options, etc.)
+- ✅ ARCHITECTURE: Modular component-based architecture
+- ✅ CODE QUALITY: Clean code, no magic numbers
+- ✅ PROFESSIONAL: App feels professional yet enjoyable to use

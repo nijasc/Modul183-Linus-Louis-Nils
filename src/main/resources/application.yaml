@@ -1,17 +1,29 @@
 spring:
   application:
     name: linkstack
-  datasource:
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
-    name: ${DB_NAME}
-    url: jdbc:postgresql://${DB_HOST}:5173
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
   flyway:
     enabled: true
     locations: classpath:db/migration
-  docker:
-    compose:
-      lifecycle-management: start_only
-      enabled: true
+  jpa:
+    open-in-view: false
+
+server:
+  servlet:
+    session:
+      cookie:
+        http-only: true
+        same-site: lax
+
 vaadin:
   launch-browser: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: never
