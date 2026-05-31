@@ -6,7 +6,7 @@
 
 **Idee:** Eine Social Media Link-Sharing Plattform mit Fokus auf Gaming-Integration (z. B. Discord RPC, Spotify).
 
-**Dokumentation:** [Dokumentation](/dokumentation/Dokumentation.md)
+**Dokumentation:** [Dokumentation](/doc/Dokumentation.md)
 
 ---
 
