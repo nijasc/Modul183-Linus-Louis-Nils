@@ -49,4 +49,44 @@ class UserService(
             ?: throw AccessDeniedException("Not authenticated")
         return auth.name
     }
+
+    @Transactional(readOnly = true)
+    fun isUsernameAvailable(username: String): Boolean {
+        if (!username.matches(Regex(ValidationLimits.USERNAME_PATTERN))) return false
+        if (username.length < ValidationLimits.USERNAME_MIN) return false
+        if (username.length > ValidationLimits.USERNAME_MAX) return false
+        return !jpa.existsByNameIgnoreCase(username)
+    }
+
+    @Transactional
+    fun changePassword(oldPassword: String, newPassword: String) {
+        require(newPassword.length >= ValidationLimits.PASSWORD_MIN) {
+            "New password must be at least ${ValidationLimits.PASSWORD_MIN} characters long"
+        }
+        require(newPassword.length <= ValidationLimits.PASSWORD_MAX) {
+            "New password too long (max ${ValidationLimits.PASSWORD_MAX})"
+        }
+        val user = loadCurrentUser()
+        if (!pwEncoder.matches(oldPassword, user.passwordHash)) {
+            throw AccessDeniedException("Current password is incorrect")
+        }
+        user.passwordHash = pwEncoder.encode(newPassword)!!
+        jpa.save(user)
+    }
+
+    @Transactional
+    fun deleteAccount(password: String) {
+        val user = loadCurrentUser()
+        if (!pwEncoder.matches(password, user.passwordHash)) {
+            throw AccessDeniedException("Password is incorrect")
+        }
+        jpa.delete(user)
+    }
+
+    private fun loadCurrentUser(): UserEntity {
+        val username = SecurityContextHolder.getContext().authentication?.name
+            ?: throw AccessDeniedException("Not authenticated")
+        return jpa.findByNameIgnoreCase(username)
+            ?: throw IllegalStateException("Authenticated user not found in database")
+    }
 }

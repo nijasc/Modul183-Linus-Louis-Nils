@@ -1,6 +1,7 @@
 package lol.linkstack.service.user
 
 import jakarta.persistence.EntityExistsException
+import lol.linkstack.TestSupport
 import lol.linkstack.dto.SignUpDto
 import lol.linkstack.repository.UserRepository
 import org.junit.jupiter.api.AfterEach
@@ -72,5 +73,76 @@ class UserServiceTest @Autowired constructor(
         userService.signUp(SignUpDto("charlie", "password123"))
         val user = userRepository.findByNameIgnoreCase("charlie")!!
         assertEquals(user.id, user.page.user?.id)
+    }
+
+    @Test
+    fun `isUsernameAvailable returns true for free username`() {
+        assertTrue(userService.isUsernameAvailable("freeUser"))
+    }
+
+    @Test
+    fun `isUsernameAvailable returns false for taken username`() {
+        userService.signUp(SignUpDto("takenUser", "password123"))
+        assertFalse(userService.isUsernameAvailable("takenUser"))
+    }
+
+    @Test
+    fun `isUsernameAvailable is case-insensitive`() {
+        userService.signUp(SignUpDto("CaseName", "password123"))
+        assertFalse(userService.isUsernameAvailable("casename"))
+        assertFalse(userService.isUsernameAvailable("CASENAME"))
+    }
+
+    @Test
+    fun `isUsernameAvailable returns false for invalid username`() {
+        assertFalse(userService.isUsernameAvailable("bad name!"))
+        assertFalse(userService.isUsernameAvailable("ab"))
+    }
+
+    @Test
+    fun `changePassword updates password hash`() {
+        userService.signUp(SignUpDto("diana", "oldPassword1"))
+        val userBefore = userRepository.findByNameIgnoreCase("diana")!!
+        val oldHash = userBefore.passwordHash
+
+        TestSupport.authenticate(userBefore)
+        userService.changePassword("oldPassword1", "newPassword2")
+
+        val userAfter = userRepository.findByNameIgnoreCase("diana")!!
+        assertNotEquals(oldHash, userAfter.passwordHash)
+        assertTrue(passwordEncoder.matches("newPassword2", userAfter.passwordHash))
+    }
+
+    @Test
+    fun `changePassword throws when old password is wrong`() {
+        userService.signUp(SignUpDto("eve", "correctPw1"))
+        val user = userRepository.findByNameIgnoreCase("eve")!!
+        TestSupport.authenticate(user)
+
+        assertThrows(org.springframework.security.access.AccessDeniedException::class.java) {
+            userService.changePassword("wrongPw1", "newPassword2")
+        }
+    }
+
+    @Test
+    fun `deleteAccount removes user from database`() {
+        userService.signUp(SignUpDto("frank", "password123"))
+        val user = userRepository.findByNameIgnoreCase("frank")!!
+        TestSupport.authenticate(user)
+
+        userService.deleteAccount("password123")
+
+        assertNull(userRepository.findByNameIgnoreCase("frank"))
+    }
+
+    @Test
+    fun `deleteAccount throws when password is wrong`() {
+        userService.signUp(SignUpDto("grace", "password123"))
+        val user = userRepository.findByNameIgnoreCase("grace")!!
+        TestSupport.authenticate(user)
+
+        assertThrows(org.springframework.security.access.AccessDeniedException::class.java) {
+            userService.deleteAccount("wrongPassword")
+        }
     }
 }
