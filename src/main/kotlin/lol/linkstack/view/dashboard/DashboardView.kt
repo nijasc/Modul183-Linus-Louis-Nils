@@ -23,6 +23,7 @@ import lol.linkstack.constants.CssToken
 import lol.linkstack.service.page.CommentService
 import lol.linkstack.service.page.ManagePageService
 import lol.linkstack.service.user.UserService
+import lol.linkstack.view.component.ChangePasswordDialog
 import lol.linkstack.view.component.SharePageDialog
 import lol.linkstack.view.dashboard.component.CommentsManagementComponent
 import lol.linkstack.view.dashboard.component.EditLinksComponent
@@ -71,6 +72,11 @@ class DashboardView(
             addClickListener { SharePageDialog(username).open() }
         }
 
+        val changePasswordButton = Button("Change Password", Icon(VaadinIcon.LOCK)).apply {
+            addThemeVariants(ButtonVariant.LUMO_TERTIARY)
+            addClickListener { ChangePasswordDialog(userService).open() }
+        }
+
         return Card().apply {
             width = "100%"
             style.set(CssProperty.PADDING, "1rem")
@@ -86,7 +92,7 @@ class DashboardView(
                         alignItems = FlexComponent.Alignment.CENTER
                         isSpacing = true
                     },
-                    HorizontalLayout(viewProfileButton, shareButton).apply {
+                    HorizontalLayout(viewProfileButton, changePasswordButton, shareButton).apply {
                         alignItems = FlexComponent.Alignment.CENTER
                         isSpacing = true
                     }
