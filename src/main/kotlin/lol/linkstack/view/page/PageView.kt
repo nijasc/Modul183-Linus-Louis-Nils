@@ -2,7 +2,6 @@ package lol.linkstack.view.page
 
 import com.vaadin.flow.component.button.Button
 import com.vaadin.flow.component.button.ButtonVariant
-import com.vaadin.flow.component.dependency.CssImport
 import com.vaadin.flow.component.html.Div
 import com.vaadin.flow.component.html.H2
 import com.vaadin.flow.component.html.Span
@@ -27,7 +26,6 @@ import lol.linkstack.view.page.component.PageLinksComponent
 
 @Route("/", autoLayout = false)
 @AnonymousAllowed
-@CssImport("./styles/page-view.css")
 class PageView(
     private val pageService: PageService,
     private val commentService: CommentService
