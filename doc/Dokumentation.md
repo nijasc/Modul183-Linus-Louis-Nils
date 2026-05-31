@@ -2,7 +2,7 @@
 
 **Modul 183 – Applikationssicherheit implementieren**  
 **Autoren:** Linus, Louis, Nils  
-**Datum:** 2026-05-31
+**Datum:** 24.04.2026 - 31.05.2026
 
 ---
 
